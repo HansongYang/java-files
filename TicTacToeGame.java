@@ -1,12 +1,4 @@
 public class TicTacToeGame{
-  
-  //
-  //
-  //  You are not allowed to change anything in this class 
-  //  except the main method for your own testing. 
-  //  
-  //
-  
   // The board is a NxN grid, where the default dimension is N=3.
   // We label the 9 positions in the 3x3 grid as follows
   //
@@ -19,9 +11,8 @@ public class TicTacToeGame{
   // For larger dimensions, the numbering of positions follows
   // the same pattern. 0, 1, ..., N-1 on the first row, then 
   // N, N+1, ..., 2N-2 on the second, etc.
-  
-  
-  private char[][] board;      // the actual game board
+    
+  public char[][] board;      // the actual game board
   private int      dimension;  // the size of the game board
   
   public int getDimension(){ 
@@ -99,9 +90,7 @@ public class TicTacToeGame{
   public void play(int pos, TicTacToePlayer p){
     // Player p plays a move in position p of the board
     board[pos/dimension][pos%dimension] = p.getXO();
-
   }
-  
   
   public static void main(String[] args){
     //
@@ -113,8 +102,7 @@ public class TicTacToeGame{
     TicTacToePlayer p1 = new TicTacToePlayer("joe", 'x');
     TicTacToePlayer p2 = new TicTacToePlayer("jane", 'o');
     
-    while( true ){
-      
+    while( true ){      
       if( TicTacToePlayer.gameOver(board) ){
         break;
       }else{
@@ -130,14 +118,9 @@ public class TicTacToeGame{
         // (same logic as player 1 but written in one line)
         p2.play(board, p2.findMove(board));
         System.out.println(board.show());
-      }
-      
+      }      
     } // end while
     
    System.out.println(TicTacToePlayer.winner(board,p1,p2).getName());
-    //
-    // who won?  test your player class by adding more code
-    // 
-    
   }  
 }
