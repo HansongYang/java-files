@@ -1,10 +1,8 @@
-
 public class TicTacToePlayer{
-  
-  /** 
+    /** 
    * Player's name. The name cannot be changed once it is set by the construtor.
    */
-  private final String name;  // DO NOT CHANGE THIS
+  private final String name; 
   private char letter;
   
   /** Getter for the players name
@@ -15,7 +13,6 @@ public class TicTacToePlayer{
     return name; 
   }
   
-  
   /**
    * Constructor for a tic tac toe player.
    * 
@@ -23,9 +20,6 @@ public class TicTacToePlayer{
    * @param p must be either 'x' or 'o'. 
    */
   public TicTacToePlayer(String name, char p){
-    //
-    // you define this constructor
-    //
     letter = p;
     this.name = name;
   }
@@ -227,8 +221,13 @@ public class TicTacToePlayer{
     }
     return null;
   }
-  
-  
+   
+  public boolean validMove(TicTacToeGame game, int position){
+    if(game.getAtPosition(position) != 'x' && game.getAtPosition(position) != 'o'){
+      return true;
+    }
+    return false;
+  }
   
   /** 
    * Checks if current player is playing x's or o's.
@@ -253,8 +252,7 @@ public class TicTacToePlayer{
       return 'x';
     }
     return 'o';
-  }
-  
+  }  
   
   /**
    * Finds a valid move in a tic-tac-toe game for this player
@@ -288,7 +286,6 @@ public class TicTacToePlayer{
    * valid moves then the function return null. 
    */
   public int[] findAllMoves(TicTacToeGame game){
-    int position = 0;
     int countSize = 0;
     //First of all, count the size of the array.
     for(int i = 0; i < game.getDimension() * game.getDimension(); i++){
@@ -300,12 +297,8 @@ public class TicTacToePlayer{
     int num = 0;
     for(int i = 0; i < game.getDimension() * game.getDimension(); i++){
       if(game.getAtPosition(i) != 'x' && game.getAtPosition(i) != 'o'){
-        position = i;
-        //Putting positions into this array.
-        for(int j = num; j < countSize ; j++){
-          validMoves[j] = position;
-        }
-        num++;
+         //Putting positions into this array.
+          validMoves[num++] = i;
         }
     }
        return validMoves;
@@ -643,8 +636,7 @@ public class TicTacToePlayer{
       }
     }  
     return -1;
-  }
-  
+  }  
   
   /** 
    * Plays a move for this player in a game
