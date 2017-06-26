@@ -1,26 +1,31 @@
+import java.util.Scanner;  
 
-import java.util.Scanner;  // used for input
-
-public class TicTacToeApp{
-  
+public class TicTacToeApp {  
   public static void main(String[] args){
     Scanner keyboard = new Scanner(System.in);  
-    
+    TicTacToePlayer p2;
+    TicTacToePlayer p1;
     System.out.println("Hello, what is your name?");
     String name = keyboard.nextLine();
-    System.out.println("Please choose a letter('x' or 'o').");
-    String letter = keyboard.nextLine();
-    
-    //Making two new player, one is the user and another one is the computer.
-    TicTacToePlayer p1 = new TicTacToePlayer(name, letter.toLowerCase().charAt(0));
-    TicTacToePlayer p2;
-    
-    //If the user chooses 'x', then computer will uses 'o'.
-    if(letter.toLowerCase().charAt(0) == 'x'){
-      p2 = new TicTacToePlayer("Computer", 'o');
-    }
-    else{
-      p2 = new TicTacToePlayer("Computer", 'x');
+    String letter = "";
+    while(true){
+      System.out.println("Please choose a letter('x' or 'o').");
+      letter = keyboard.nextLine();
+      
+      //Making two new player, one is the user and another one is the computer.
+      p1 = new TicTacToePlayer(name, letter.toLowerCase().charAt(0));
+      
+      //If the user chooses 'x', then computer will uses 'o'.
+      if(letter.toLowerCase().charAt(0) == 'x'){
+        p2 = new TicTacToePlayer("Computer", 'o');
+        break;
+      }
+      else if(letter.toLowerCase().charAt(0) == 'o'){
+        p2 = new TicTacToePlayer("Computer", 'x');
+        break;
+      }else{
+        System.out.println("Invalid Input! Please Try again!");
+      }
     }
     
     //Creating a new game.
@@ -30,8 +35,17 @@ public class TicTacToeApp{
     int move = 0;
     //Determine who plays first.
     if(p1.isX() == true){
-      System.out.println("please  choose a position to play (the position will be an integer between 0 and " + (game.getDimension() * game.getDimension()  - 1)+ " ).");
-      int position = keyboard.nextInt();
+      int position = 0;
+      while(true){
+        System.out.println("please  choose a position to play (the position will be an integer between 0 and " + (game.getDimension() * game.getDimension()  - 1)+ " ).");
+        position = keyboard.nextInt();
+        if(position < 0 ||  (game.getDimension() * game.getDimension()-1) < position){
+          System.out.println("Sorry, invalid input! Please try again.");
+        }
+        else{
+          break;
+        }
+      }
       System.out.println("You chose position " + position +" .");
       p1.play(game, position);
       myTurn = true;
@@ -59,8 +73,19 @@ public class TicTacToeApp{
           break;
         }
         
-        //Convert the string input into a integer position.
-        int position = Integer.parseInt(input);
+        int position;
+        while(true){
+          //Convert the string input into a integer position.
+          position = Integer.parseInt(input);
+          if(position < 0 || position > (game.getDimension() * game.getDimension() -1) || !p1.validMove(game, position)){
+            System.out.println("Invalid input! Please try again!");
+          }
+          else{
+            break;
+          }
+           input = keyboard.next();
+        }
+        
         System.out.println("You chose position " + position +" .");
         p1.play(game, position);
         computerTurn = false;
@@ -73,9 +98,11 @@ public class TicTacToeApp{
         //If the user wins.
         if(TicTacToePlayer.winner(game,p1,p2).getName() == p1.getName()){
           System.out.println(TicTacToePlayer.winner(game,p1,p2).getName() + " won the game.");
+          System.out.println("The gameboard has been enlarged.");
           won++;
           //Starting a new game.
-          game = new TicTacToeGame();
+          int dimension = game.getDimension();
+          game = new TicTacToeGame(++dimension);
         }
         //If the computer wins.
         else{
@@ -97,39 +124,41 @@ public class TicTacToeApp{
       }
       
       //The computer's turn
-       if(myTurn == true){
-         if(p2.findBlockingMove(game) == -1){
+      if(myTurn == true){
+        if(p2.findBlockingMove(game) == -1){
           move = p2.findMove(game);
           p2.play(game, p2.findMove(game));
           System.out.println("The computer played in the position " +move + " .");
           myTurn = false;
           computerTurn = true;
           System.out.println(game.show());
-         }
-         else if(p2.findBlockingMove(game) != -1){
-           move = p2.findBlockingMove(game);
-           p2.play(game, p2.findBlockingMove(game));
-           System.out.println("The computer played in the position " +move + " .");
-           myTurn = false;
-           computerTurn = true;
-           System.out.println(game.show());
-         }
-         else if(p2.findWinningMove(game) != -1){
-           move = p2.findWinningMove(game);
-           p2.play(game, p2.findWinningMove(game));
-           System.out.println("The computer played in the position " +move + " .");
-           myTurn = false;
-           computerTurn = true;
-           System.out.println(game.show());
-         }
-       }
-       
+        }
+        else if(p2.findBlockingMove(game) != -1){
+          move = p2.findBlockingMove(game);
+          p2.play(game, p2.findBlockingMove(game));
+          System.out.println("The computer played in the position " +move + " .");
+          myTurn = false;
+          computerTurn = true;
+          System.out.println(game.show());
+        }
+        else if(p2.findWinningMove(game) != -1){
+          move = p2.findWinningMove(game);
+          p2.play(game, p2.findWinningMove(game));
+          System.out.println("The computer played in the position " +move + " .");
+          myTurn = false;
+          computerTurn = true;
+          System.out.println(game.show());
+        }
+      }
+      
       //Check whether the game is ended or not.
       if(TicTacToePlayer.gameOver(game) == true){
         if(TicTacToePlayer.winner(game,p1,p2).getName() == p1.getName()){
           System.out.println(TicTacToePlayer.winner(game,p1,p2).getName() + " won the game.");
+          System.out.println("The gameboard has been enlarged.");
           won++;
-          game = new TicTacToeGame();
+          int dimension = game.getDimension();
+          game = new TicTacToeGame(dimension++);
         }
         else{
           System.out.println("The computer won the game.");
