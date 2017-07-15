@@ -7,17 +7,17 @@ public class calender {
 	public static boolean isLeapYear(int y){
 		if((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0)){
 			return true; 
-			}
+		}
 		return false;
 	}
 	
 	public static int firstDay(int y) {
 		long n = y * 365;
 		for (int i = 1; i < y; i++)
-		if (isLeapYear(i))
-		n += 1;
+			if (isLeapYear(i))
+			n += 1;
 		return (int) n % 7;
-		}
+	}
 	
 	public static String cz(int year){
 		int a = 0;
@@ -58,9 +58,9 @@ public class calender {
 				weekday = (weekday + 1) % 7;
 				if(weekday == 0){
 					System.out.println();
-					}
-				}				
-				System.out.println();
+				}
+			}				
+			System.out.println();
 		}
 	}
 	
