@@ -1,7 +1,6 @@
 import java.util.Scanner;
 public class calender {
 	public static int days = 0;
-	public static int weekday = 0;
 	public static String [] zodiac = {"Pig","Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog"};
 	
 	public static boolean isLeapYear(int y){
