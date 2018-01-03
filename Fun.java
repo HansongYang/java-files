@@ -3,6 +3,9 @@ import javax.swing.*;
 import java.awt.*; 
 
 public class Fun extends JFrame{
+	draw panel = new draw();
+	JPanel aPanel = new JPanel();
+	JFrame window = new JFrame();
 	JButton free = new JButton("Free Draw");
 	JButton circles = new JButton("O");
 	JButton line = new JButton("------");
@@ -19,11 +22,9 @@ public class Fun extends JFrame{
 	JButton white = new JButton();
 	JButton fill = new JButton("Fill in Color");
 	JButton erase = new JButton("Eraser");
-	draw panel = new draw();
-	JPanel aPanel = new JPanel();
-	JFrame window = new JFrame();
+	JButton newPage = new JButton("New Page");
 	JMenuBar menubar = new JMenuBar();
-	JMenu menu = new JMenu("Thickness");
+	JMenu thick = new JMenu("Thickness");
 	JMenuItem one = new JMenuItem("1");
 	JMenuItem five = new JMenuItem("5");
 	JMenuItem ten = new JMenuItem("10");
@@ -47,13 +48,14 @@ public class Fun extends JFrame{
 		
 		Dimension d = new Dimension(100,40);
 		free.setPreferredSize(d);
+		newPage.setPreferredSize(d);
 		circles.setPreferredSize(d);
 		line.setPreferredSize(d);
 		rectangles.setPreferredSize(d);
 		polygon.setPreferredSize(d);
 		fill.setPreferredSize(d);
 		
-		d = new Dimension(40,30);
+		d = new Dimension(20,20);
 		blue.setPreferredSize(d);
 		pink.setPreferredSize(d);
 		red.setPreferredSize(d);
@@ -65,6 +67,7 @@ public class Fun extends JFrame{
 		white.setPreferredSize(d);
 		
 		free.setBackground(Color.WHITE);
+		newPage.setBackground(Color.WHITE);
 		circles.setBackground(Color.RED);
 		circles.setForeground(Color.blue);
 		line.setBackground(Color.GREEN);
@@ -84,18 +87,20 @@ public class Fun extends JFrame{
 		orange.setBackground(Color.ORANGE);
 		magenta.setBackground(Color.MAGENTA);
 		white.setBackground(Color.WHITE);
-		
-		menubar.add(menu);
-		menu.add(one);
-		menu.add(five);
-		menu.add(ten);
-		menu.add(fifteen);
-		menu.add(twenty);
-		menu.add(twentyFive);
-		menu.add(thirty);
-		
-		aPanel.add(menubar);
+
+		menubar.add(thick);
+		thick.add(one);
+		thick.add(five);
+		thick.add(ten);
+		thick.add(fifteen);
+		thick.add(twenty);
+		thick.add(twentyFive);
+		thick.add(thirty);
+
+
+		aPanel.add(newPage);
 		aPanel.add(free);
+		aPanel.add(menubar);
 		aPanel.add(circles);
 		aPanel.add(line);
 		aPanel.add(rectangles);
@@ -120,6 +125,15 @@ public class Fun extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent a){
 				panel.freeDraw(1);
+			}
+		});
+		
+		newPage.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent a){
+				panel.removeAll();
+				panel.revalidate();
+				panel.repaint();
 			}
 		});
 		
@@ -277,7 +291,7 @@ public class Fun extends JFrame{
 				panel.setThickness(7);
 			}
 		});
-	}
+	}	
 	
 	public static void main(String[] args){
 		Fun f = new Fun("Just For Fun");
