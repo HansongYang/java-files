@@ -16,6 +16,7 @@ public class draw extends JPanel{
 	public draw(){
 		setBackground(Color.WHITE);
 		setup();
+		freeDraw(1);
 	}
 	
 	public void freeDraw(int arg){
@@ -26,9 +27,13 @@ public class draw extends JPanel{
 			erase = false;
 		}
 	}
-	
+		
 	public void fill(){
-		fill = true;
+		if(fill){
+			fill = false;
+		}else{
+			fill = true;
+		}
 	}
 	
 	public void setup(){
@@ -124,7 +129,7 @@ public class draw extends JPanel{
 			case 6: color = 6; break;
 			case 7: color = 7; break;
 			case 8: color = 8; break;
-			case 9: color = 9; fill = false; break;
+			case 9: color = 9; break;
 		}
 	}
 	
@@ -143,30 +148,30 @@ public class draw extends JPanel{
 	public void paintComponent(Graphics g){ 
 	   super.paintComponent(g);
 	   Graphics2D g2 = (Graphics2D) g;
+	   switch(color){
+	   	case 1:
+	   			g.setColor(Color.blue); break;
+	   	case 2:
+	   			g.setColor(Color.pink); break;
+	   	case 3:
+			    g.setColor(Color.red); break;
+	   	case 4:
+			    g.setColor(Color.green); break;
+	   	case 5:
+			    g.setColor(Color.black); break;
+	   	case 6:
+			    g.setColor(Color.yellow); break;
+	   	case 7:
+			    g.setColor(Color.orange); break;
+	   	case 8:
+			    g.setColor(Color.magenta); break;
+	   	case 9:
+	   			g.setColor(Color.white); break;
+		default:
+			    g.setColor(Color.BLACK); break;
+	   }
+	   
 	   if(type == 1){
-		   switch(color){
-		   	case 1:
-		   			g.setColor(Color.blue); break;
-		   	case 2:
-		   			g.setColor(Color.pink); break;
-		   	case 3:
-				    g.setColor(Color.red); break;
-		   	case 4:
-				    g.setColor(Color.green); break;
-		   	case 5:
-				    g.setColor(Color.black); break;
-		   	case 6:
-				    g.setColor(Color.yellow); break;
-		   	case 7:
-				    g.setColor(Color.orange); break;
-		   	case 8:
-				    g.setColor(Color.magenta); break;
-		   	case 9:
-		   			g.setColor(Color.white); break;
-			default:
-				    g.setColor(Color.BLACK); break;
-		   }
-
 		   int minX = Math.min(x1, x2);
 	       int minY = Math.min(y1, y2);
 	       int maxX = Math.max(x1, x2);
@@ -178,55 +183,10 @@ public class draw extends JPanel{
 	       }
 	  }
 	   else if (type == 2){
-		   switch(color){
-		   	case 1:
-		   			g.setColor(Color.blue); break;
-		   	case 2:
-		   			g.setColor(Color.pink); break;
-		   	case 3:
-				    g.setColor(Color.red); break;
-		   	case 4:
-				    g.setColor(Color.green); break;
-		   	case 5:
-				    g.setColor(Color.black); break;
-		   	case 6:
-				    g.setColor(Color.yellow); break;
-		   	case 7:
-				    g.setColor(Color.orange); break;
-		   	case 8:
-				    g.setColor(Color.magenta); break;
-		   	case 9:
-	   				g.setColor(Color.white); break;
-			default:
-				    g.setColor(Color.BLACK); break;
-		   }
 		   g2.setStroke(new BasicStroke(thickness));
 		   g2.drawLine(x1,y1,x2,y2);
 	   }
-	   else if(type == 3){
-		  switch(color){
-		   	case 1:
-		   			g.setColor(Color.blue); break;
-		   	case 2:
-		   			g.setColor(Color.pink); break;
-		   	case 3:
-				    g.setColor(Color.red); break;
-		   	case 4:
-				    g.setColor(Color.green); break;
-		   	case 5:
-				    g.setColor(Color.black); break;
-		   	case 6:
-				    g.setColor(Color.yellow); break;
-		   	case 7:
-				    g.setColor(Color.orange); break;
-		   	case 8:
-				    g.setColor(Color.magenta); break;
-		   	case 9:
-	   				g.setColor(Color.white); break;
-			default:
-				    g.setColor(Color.BLACK); break;
-		   }
-		  
+	   else if(type == 3){		  
           int minX = Math.min(x1, x2);
           int minY = Math.min(y1, y2);
           int maxX = Math.max(x1, x2);
@@ -236,29 +196,7 @@ public class draw extends JPanel{
 	       if(fill){
 	    	   g2.fillRect(minX,minY, maxX-minX, maxY-minY);
 	       }
-	   }else if(type == 4){	
-			switch(color){
-			   	case 1:
-			   			g.setColor(Color.blue); break;
-			   	case 2:
-			   			g.setColor(Color.pink); break;
-			   	case 3:
-					    g.setColor(Color.red); break;
-			   	case 4:
-					    g.setColor(Color.green); break;
-			   	case 5:
-					    g.setColor(Color.black); break;
-			   	case 6:
-					    g.setColor(Color.yellow); break;
-			   	case 7:
-					    g.setColor(Color.orange); break;
-			   	case 8:
-					    g.setColor(Color.magenta); break;
-			   	case 9:
-		   				g.setColor(Color.white); break;
-				default:
-					    g.setColor(Color.BLACK); break;
-			}
+	   }else if(type == 4){
 		   g2.setStroke(new BasicStroke(thickness));
 		   g2.drawPolygon(x,y,4);
 		   if(fill){
@@ -267,4 +205,6 @@ public class draw extends JPanel{
 	   }
 	}
 }
+
+
 
